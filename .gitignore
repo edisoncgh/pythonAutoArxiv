@@ -1,0 +1,33 @@
+# 忽略node_modules目录
+node_modules/
+
+# 忽略Logs
+logs
+*.log
+
+# 忽略/search_results目录，相对.gitignore文件所在目录
+/search_results
+
+/build
+/dist
+
+# 忽略.env文件
+.env
+
+# 忽略文本文件
+*.txt
+
+# 忽略测试代码
+test.py
+autoArxiv.spec
+
+# 忽略配置文件
+*.json
+*.spec
+
+# 忽略IDE的配置文件
+.idea/
+.vscode/
+*.sw*
+/build
+/dist
