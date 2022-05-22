@@ -119,7 +119,9 @@ class HttpDownloader:
             flag = True
         
         if (not os.path.exists('config.json')):
-            config_json = '{\"keywords\" : \"\",\"field\" : \"\"}'
+            config_json = (
+                '{\"keywords\":\"\",\"field\":\"\",\"message\":{\"meowKey\":\"\",\"mailgunUrl\":\"\",\"mailgunKey\":\"\",\"emailSrc\":\"\",\"emailDst\":\"\"}}'
+            )
             with open('config.json', 'w') as f:
                 f.write(config_json)
             flag = True
@@ -151,7 +153,7 @@ class HttpDownloader:
     def updateLocalFile(self, localfilepath):
         with open(localfilepath, 'w') as f:
             for record in self.downloadedPaper:
-                f.write(record + '\n')
+                f.write(record.replace('\n', '') + '\n')
 
     # 回调函数:下载进度
     def callbackinfo(self, done, block, size):
@@ -202,6 +204,16 @@ def main():
 
     with open('config.json', 'r') as f:
         config_info = json.load(f)
+
+    messagePost = MessagePost(
+            "", 
+            meowKey = config_info['message']['meowKey'],
+            mailgunKey = config_info['message']['mailgunKey'],
+            mailgunUrl = config_info['message']['mailgunUrl'],
+            emailSrc = config_info['message']['emailSrc'],
+            emailDst = config_info['message']['emailDst']
+        )
+    
     monitor = ArxivMonitor(keywords=config_info['keywords'], field=config_info['field'])
     search_res = monitor.search()
 
